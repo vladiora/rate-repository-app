@@ -1,20 +1,26 @@
-import { View, StyleSheet} from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import AppBarTab from './AppBarTab';
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     padding: 20,
     backgroundColor: '#24292e'
   },
+  contentContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 10
+  }
 });
 
 const AppBar = () => {
   return <View style={styles.container}>
-            <AppBarTab tabText='Repositories'></AppBarTab>
+          <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
+            <AppBarTab tabText='Repositories' path='/'></AppBarTab>
+            <AppBarTab tabText='Sign in' path='/login'></AppBarTab>
+            <AppBarTab tabText='Some really long tab so you have to scroll' path='/scroll'></AppBarTab>
+          </ScrollView>
         </View>;
 };
 
