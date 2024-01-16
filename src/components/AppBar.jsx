@@ -19,7 +19,6 @@ const AppBar = () => {
           <ScrollView horizontal contentContainerStyle={styles.contentContainer}>
             <AppBarTab tabText='Repositories' path='/'></AppBarTab>
             <AppBarTab tabText='Sign in' path='/login'></AppBarTab>
-            <AppBarTab tabText='Some really long tab so you have to scroll' path='/scroll'></AppBarTab>
           </ScrollView>
         </View>;
 };
