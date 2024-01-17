@@ -3,11 +3,21 @@ import FormikTextInput from './FormikTextInput';
 import { Formik } from 'formik';
 import Text from './Text';
 import theme from '../theme';
+import * as yup from 'yup';
 
 const initialValues = {
   username: '',
   password: '',
 };
+
+const validationSchema = yup.object().shape({
+  username: yup.string()
+              .min(3, 'Username must be at least 3 characters')
+              .required('Username is required.'),
+  password: yup.string()
+              .min(6, 'Password must be at least 6 characters')
+              .required('Password is required.')
+})
 
 const SignIn = () => {
 
@@ -30,7 +40,7 @@ const SignIn = () => {
     console.log(values);
   };
 
-  return <Formik initialValues={initialValues} onSubmit={onSubmit}>
+  return <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             <View style={styles.container}>
               <FormikTextInput name="username" placeholder="Username" />
               <FormikTextInput name="password" placeholder="Password" secureTextEntry />
