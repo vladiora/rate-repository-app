@@ -3,7 +3,9 @@ import FormikTextInput from './FormikTextInput';
 import { Formik } from 'formik';
 import Text from './Text';
 import theme from '../theme';
+import useSignIn from '../hooks/useSignIn';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-native';
 
 const initialValues = {
   username: '',
@@ -19,35 +21,60 @@ const validationSchema = yup.object().shape({
               .required('Password is required.')
 })
 
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+  },
+  button: {
+    backgroundColor: theme.colors.primary,
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+    marginTop: 16,
+  },
+});
+
+const SignInForm = ({ onSubmit }) => {
+  return (
+    <View style={styles.container}>
+      <View>
+        <FormikTextInput name="username" placeholder="Username" />
+      </View>
+      <View>
+        <FormikTextInput
+          name="password"
+          placeholder="Password"
+          secureTextEntry
+        />
+      </View>
+      <Pressable style={styles.button} onPress={onSubmit}>
+        <Text fontSize='fontSizeSubheading' style={{color: '#fff'}}>Sign in</Text>
+      </Pressable>
+    </View>
+  );
+};
+
 const SignIn = () => {
+  const [signIn] = useSignIn();
+  const navigate = useNavigate();
 
-  const styles = StyleSheet.create({
-    container: {
-      padding: 20,
-      backgroundColor: '#fff',
-      borderRadius: 10,
-    },
-    button: {
-      backgroundColor: theme.colors.primary,
-      padding: 10,
-      alignItems: 'center',
-      borderRadius: 5,
-      marginTop: 16,
-    },
-  });
+  const onSubmit = async (values) => {
+    const { username, password } = values;
 
-  const onSubmit = (values) => {
-    console.log(values);
+    console.log(username + ' is signed in.');
+
+    try {
+      await signIn({ username, password });
+      navigate('/repositories');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-            <View style={styles.container}>
-              <FormikTextInput name="username" placeholder="Username" />
-              <FormikTextInput name="password" placeholder="Password" secureTextEntry />
-              <Pressable style={styles.button} onPress={onSubmit}>
-                <Text fontSize='fontSizeSubheading' style={{color: '#fff'}}>Sign in</Text>
-              </Pressable>
-            </View>
+            {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
         </Formik>;
 };
 
