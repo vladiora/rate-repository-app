@@ -27,13 +27,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
   },
-  button: {
-    backgroundColor: theme.colors.primary,
-    padding: 10,
-    alignItems: 'center',
-    borderRadius: 5,
-    marginTop: 16,
-  },
 });
 
 const SignInForm = ({ onSubmit }) => {
@@ -49,7 +42,7 @@ const SignInForm = ({ onSubmit }) => {
           secureTextEntry
         />
       </View>
-      <Pressable style={styles.button} onPress={onSubmit}>
+      <Pressable style={theme.primaryButton} onPress={onSubmit}>
         <Text fontSize='fontSizeSubheading' style={{color: '#fff'}}>Sign in</Text>
       </Pressable>
     </View>

@@ -1,9 +1,10 @@
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, Pressable } from "react-native";
 import Text from "../Text";
 import theme from "../../theme";
 import CountItem from "../CountItem";
+import * as Linking from 'expo-linking';
 
-const RepositoryItem = ({fullName, description, language, stars, forks, review, rating, avatarUrl}) => {
+const RepositoryItem = ({item, showFullView = false}) => {
 
 		const styles = StyleSheet.create({
 				container: {
@@ -51,21 +52,26 @@ const RepositoryItem = ({fullName, description, language, stars, forks, review, 
 
 		return <View testID="repositoryItem" style={styles.container}>
 							<View style={styles.rowContainer}>
-								{avatarUrl && <Image style={styles.repoImage} source={{ uri: avatarUrl }} />}
+								{item.ownerAvatarUrl && <Image style={styles.repoImage} source={{ uri: item.ownerAvatarUrl }} />}
 								<View style={{ flex: 1, marginBottom: 8 }}>
-									<Text fontSize='heading' fontWeight='bold' style={styles.margin}>{fullName}</Text>
-									<Text color='textSecondary' fontSize='subheading' style={styles.margin}>{description}</Text>
+									<Text fontSize='heading' fontWeight='bold' style={styles.margin}>{item.fullName}</Text>
+									<Text color='textSecondary' fontSize='subheading' style={styles.margin}>{item.description}</Text>
 									<View style={styles.languageBackground}>
-										<Text style={styles.language}>{language}</Text>
+										<Text style={styles.language}>{item.language}</Text>
 									</View>
 								</View>
 							</View>
 							<View style={styles.infoContainer}>
-								<CountItem countNum={formatNumber(stars)} text='Stars'/>
-								<CountItem countNum={formatNumber(forks)} text='Forks'/>
-								<CountItem countNum={review} text='Reviews'/>
-								<CountItem countNum={rating} text='Rating'/>
+								<CountItem countNum={formatNumber(item.stargazersCount)} text='Stars'/>
+								<CountItem countNum={formatNumber(item.forksCount)} text='Forks'/>
+								<CountItem countNum={item.reviewCount} text='Reviews'/>
+								<CountItem countNum={item.ratingAverage} text='Rating'/>
 							</View>
+							{showFullView && (
+								<Pressable style={theme.primaryButton} onPress={() => Linking.openURL(item.url)}>
+									<Text fontSize='fontSizeSubheading' style={{color: '#fff'}}>Open in Github</Text>
+								</Pressable>
+							)}
 						</View>;
 };
 
