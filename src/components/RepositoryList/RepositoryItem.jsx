@@ -7,13 +7,6 @@ import * as Linking from 'expo-linking';
 const RepositoryItem = ({item, showFullView = false}) => {
 
 		const styles = StyleSheet.create({
-				container: {
-					padding: 16,
-					borderBottomWidth: 1,
-					borderBottomColor: '#ccc',
-					marginBottom: 8,
-					backgroundColor: '#fff',
-				},
 				languageBackground: {
 					backgroundColor: theme.colors.primary,
 					borderRadius: 5,
@@ -50,7 +43,7 @@ const RepositoryItem = ({item, showFullView = false}) => {
 			return num;
 		};
 
-		return <View testID="repositoryItem" style={styles.container}>
+		return <View testID="repositoryItem" style={theme.whiteCnt}>
 							<View style={styles.rowContainer}>
 								{item.ownerAvatarUrl && <Image style={styles.repoImage} source={{ uri: item.ownerAvatarUrl }} />}
 								<View style={{ flex: 1, marginBottom: 8 }}>

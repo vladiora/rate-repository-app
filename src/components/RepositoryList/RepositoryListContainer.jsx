@@ -1,15 +1,9 @@
-import { FlatList, View, StyleSheet, Pressable } from 'react-native';
+import { FlatList, Pressable } from 'react-native';
 import RepositoryItem from './RepositoryItem';
+import ItemSeparator from './ItemSeparator';
+import RepositorySortMenu from './RepositorySortMenu';
 
-const styles = StyleSheet.create({
-	separator: {
-		height: 10,
-	},
-});
-
-const ItemSeparator = () => <View style={styles.separator} />;
-
-const RepositoryListContainer = ({ repositories, navigate }) => {
+const RepositoryListContainer = ({ repositories, navigate, setOrderBy, setOrderDirection, setSearchKeyword }) => {
 
 	// Get the nodes from the edges array
 	const repositoryNodes = repositories
@@ -17,13 +11,18 @@ const RepositoryListContainer = ({ repositories, navigate }) => {
 		: [];
 
 	const handleRepositoryClick = (item) => {
-		console.log(`handleRepositoryClick for ${item.id}`);
-
 		navigate(`/repositories/${item.id}`);
 	};
 
 	return (
 		<FlatList
+			ListHeaderComponent={
+				<RepositorySortMenu
+					setOrderBy={setOrderBy}
+					setOrderDirection={setOrderDirection}
+					setSearchKeyword={setSearchKeyword}
+				/>
+			}
 			data={repositoryNodes}
 			ItemSeparatorComponent={ItemSeparator}
 			renderItem={({item}) => <Pressable onPress={() => handleRepositoryClick(item)}><RepositoryItem item={item} /></Pressable>}

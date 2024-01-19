@@ -29,7 +29,14 @@ const theme = {
       alignItems: 'center',
       borderRadius: 5,
       marginTop: 16,
-    }
+    },
+    whiteCnt: {
+      padding: 16,
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc',
+      marginBottom: 8,
+      backgroundColor: '#fff',
+    },
 };
 
 export default theme;
