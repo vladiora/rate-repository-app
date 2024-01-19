@@ -1,4 +1,4 @@
-import { FlatList, Pressable } from 'react-native';
+import { FlatList } from 'react-native';
 import { useMutation } from '@apollo/client';
 
 import useMe from '../hooks/useMe';

@@ -3,7 +3,7 @@ import RepositoryItem from './RepositoryItem';
 import ItemSeparator from './ItemSeparator';
 import RepositorySortMenu from './RepositorySortMenu';
 
-const RepositoryListContainer = ({ repositories, navigate, setOrderBy, setOrderDirection, setSearchKeyword }) => {
+const RepositoryListContainer = ({ repositories, navigate, setOrderBy, setOrderDirection, setSearchKeyword, onEndReach }) => {
 
 	// Get the nodes from the edges array
 	const repositoryNodes = repositories
@@ -27,6 +27,8 @@ const RepositoryListContainer = ({ repositories, navigate, setOrderBy, setOrderD
 			ItemSeparatorComponent={ItemSeparator}
 			renderItem={({item}) => <Pressable onPress={() => handleRepositoryClick(item)}><RepositoryItem item={item} /></Pressable>}
 			keyExtractor={item => {return item.id}}
+			onEndReached={onEndReach}
+      		onEndReachedThreshold={0.2}
 		/>
 	);
 };

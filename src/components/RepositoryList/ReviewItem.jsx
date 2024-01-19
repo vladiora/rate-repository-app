@@ -35,15 +35,15 @@ const ReviewItem = ({
   const formatDate = (dateString) => {
 
 	if (!dateString) {
-	  console.log('Failed to format date');
-	  return null;
+		console.log('Failed to format date');
+		return null;
 	}
 
 	const dateSubString = dateString.split('T')[0];
 
 	if (!dateSubString) {
-	  console.log('Failed to format date');
-	  return null;
+		console.log('Failed to format date');
+		return null;
 	}
 
 	return dateSubString;
@@ -51,45 +51,45 @@ const ReviewItem = ({
 
   const createDeleteAlert = () =>
 	Alert.alert(
-	  'Delete Review',
-	  'Are you sure you want to delete this review?',
-	  [
-		{
-		  text: 'Cancel',
-		  style: 'cancel',
-		},
-		{ text: 'Delete', onPress: () => handleDeleteClick(review.id) },
-	  ]
+		'Delete Review',
+		'Are you sure you want to delete this review?',
+		[
+			{
+				text: 'Cancel',
+				style: 'cancel',
+			},
+			{ text: 'Delete', onPress: () => handleDeleteClick(review.id) },
+		]
 	);
 
   return (
 	<>
-	  <View style={theme.whiteCnt}>
-		<View style={{flexDirection: 'row'}}>
-			<View style={styles.circle}>
-				<Text>{review.rating}</Text>
+		<View style={theme.whiteCnt}>
+			<View style={{flexDirection: 'row'}}>
+				<View style={styles.circle}>
+					<Text>{review.rating}</Text>
+				</View>
+				<View style={{ flex: 1}}>
+					{titleAsUsername ? (
+						<Text fontWeight="bold" fontSize='subheading'>{review.user.username}</Text>
+					) : (
+						<Text fontWeight="bold" fontSize='subheading'>{review.repository.name}</Text>
+					)}
+					<Text color='textSecondary' >{formatDate(review.createdAt)}</Text>
+					<Text style={{ marginTop: 5 }}>{review.text}</Text>
+				</View>
 			</View>
-			<View style={{ flex: 1}}>
-				{titleAsUsername ? (
-					<Text fontWeight="bold" fontSize='subheading'>{review.user.username}</Text>
-				) : (
-					<Text fontWeight="bold" fontSize='subheading'>{review.repository.name}</Text>
-				)}
-				<Text color='textSecondary' >{formatDate(review.createdAt)}</Text>
-				<Text style={{ marginTop: 5 }}>{review.text}</Text>
-			</View>
+			{showButtons && (
+				<View style={styles.buttonContainer}>
+					<Pressable style={[theme.primaryButton, {flex: 1}]} onPress={() => navigate(`/repositories/${review.repository.id}`)}>
+						<Text style={{color: '#fff'}}>View Repository</Text>
+					</Pressable>
+					<Pressable style={[theme.primaryButton, {flex: 1, marginLeft: 10, backgroundColor: '#FF0000'}]} onPress={createDeleteAlert}>
+						<Text style={{color: '#fff'}}>Delete Repository</Text>
+					</Pressable>
+				</View>
+			)}
 		</View>
-		{showButtons && (
-			<View style={styles.buttonContainer}>
-				<Pressable style={[theme.primaryButton, {flex: 1}]} onPress={() => navigate(`/repositories/${review.repository.id}`)}>
-					<Text style={{color: '#fff'}}>View Repository</Text>
-				</Pressable>
-				<Pressable style={[theme.primaryButton, {flex: 1, marginLeft: 10, backgroundColor: '#FF0000'}]} onPress={createDeleteAlert}>
-					<Text style={{color: '#fff'}}>Delete Repository</Text>
-				</Pressable>
-			</View>
-		)}
-	  </View>
 	</>
   );
 };
