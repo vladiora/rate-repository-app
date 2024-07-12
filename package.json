@@ -20,7 +20,7 @@
     "expo": "~51.0.20",
     "expo-linking": "~3.2.4",
     "expo-status-bar": "~1.4.0",
-    "formik": "^2.4.5",
+    "formik": "^2.4.6",
     "graphql": "^15.8.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
