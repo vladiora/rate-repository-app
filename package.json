@@ -34,7 +34,7 @@
     "@babel/core": "^7.12.9",
     "@babel/eslint-parser": "^7.23.3",
     "@testing-library/jest-native": "^5.4.3",
-    "@testing-library/react-native": "^12.4.3",
+    "@testing-library/react-native": "^12.5.1",
     "eslint": "^9.7.0",
     "eslint-plugin-jest": "^28.6.0",
     "eslint-plugin-react": "^7.33.2",
